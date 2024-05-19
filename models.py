@@ -41,7 +41,7 @@ class PositionalEncoding(nn.Module):
         )
         pe[:, 0::2] = torch.sin(position * div_term)
         pe[:, 1::2] = torch.cos(position * div_term)
-        pe = pe.unsqueeze(0)
+        self.pe = pe.unsqueeze(0)
         self.register_buffer("positional_encoding", pe)
 
     def forward(self, x: torch.Tensor) -> float:
@@ -102,7 +102,7 @@ class Encoder(nn.Module):
 
 class DecoderLayer(nn.Module):
     def __init__(self, size, self_attention: any, src_attention: any, feed_forward: any, dropout: float):
-        super(DecoderLayer).__init__()
+        super(DecoderLayer, self).__init__()
         self.size = size
         self.self_attention = self_attention
         self.src_attention = src_attention
@@ -132,7 +132,7 @@ class Decoder(nn.Module):
 
 class MultiHeadedAttention(nn.Module):
     def __init__(self, h: int, d_model: int, dropout: float = 0.1):
-        super(MultiHeadedAttention).__init__()
+        super(MultiHeadedAttention, self).__init__()
         assert d_model % h == 0  # We assume d_v always equals d_k
 
         self.d_k = d_model // h
@@ -183,7 +183,7 @@ class FeedForwardNetwork(nn.Module):
 class EncoderDecoder(nn.Module):
     def __init__(self, encoder: Encoder, decoder: Decoder, src_embed: nn.Sequential, tgt_embed: nn.Sequential,
                  generator: Generator):
-        super(EncoderDecoder).__init__()
+        super(EncoderDecoder, self).__init__()
         self.encoder = encoder
         self.decoder = decoder
         self.src_embed = src_embed

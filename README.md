@@ -6,6 +6,7 @@ Some of the code here are inspired by [The Annotated Transformer](https://nlp.se
 
 ## Model Architecture
 This project's model follows the exact model architecture in the paper.
+
 ![image](https://github.com/lloydaxeph/multi_head_attention_transformer/assets/158691653/7c382a8d-e123-41e6-aef1-aadbe919ac21)
 
 ## Applications

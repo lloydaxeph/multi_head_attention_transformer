@@ -5,6 +5,8 @@ from torch.nn.functional import log_softmax
 
 from utils import clone, attention
 
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 
 class Generator(nn.Module):
     """Define standard linear + softmax generation step."""
@@ -41,7 +43,7 @@ class PositionalEncoding(nn.Module):
         )
         pe[:, 0::2] = torch.sin(position * div_term)
         pe[:, 1::2] = torch.cos(position * div_term)
-        self.pe = pe.unsqueeze(0)
+        self.pe = pe.unsqueeze(0).to(device)
         self.register_buffer("positional_encoding", pe)
 
     def forward(self, x: torch.Tensor) -> float:
